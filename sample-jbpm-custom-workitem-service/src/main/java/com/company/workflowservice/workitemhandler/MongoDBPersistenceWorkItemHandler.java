@@ -1,6 +1,7 @@
 package com.company.workflowservice.workitemhandler;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.kie.api.runtime.process.WorkItem;
 import org.kie.api.runtime.process.WorkItemHandler;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Component;
 
 import com.company.workflowservice.data.mongo.CustomerRepository;
 import com.company.workflowservice.model.Customer;
+import com.company.workflowservice.service.RestClientService;
 
 @Component("MongoDBPersistenceWorkItemHandler")
 public class MongoDBPersistenceWorkItemHandler implements WorkItemHandler {
@@ -18,6 +20,9 @@ public class MongoDBPersistenceWorkItemHandler implements WorkItemHandler {
 	@Autowired
 	@Qualifier("customerRepository")
 	CustomerRepository customerRepository;
+	
+	@Autowired
+	RestClientService restService;
 
 	@Override
 	public void executeWorkItem(WorkItem workItem, WorkItemManager manager) {
@@ -28,24 +33,30 @@ public class MongoDBPersistenceWorkItemHandler implements WorkItemHandler {
 		List<String> urls = (List<String>)workItem.getParameter("URLs");
 		System.out.println("Done");
 		
-		/*
-		System.out.println("Customer " + customers.size());
-		
-		customers.forEach(System.out::println);
-		urls.forEach(System.out::println);
-		
-		int qty = customers.size();
-		if (qty == urls.size()) {
-			for (int i = 0; i<qty;i++) {
-			Customer cust = new Customer();
-			cust.setName(customers.get(i));
-			cust.setUrl(urls.get(i));
-			cust.setId("1");
-			cust.setIncome(100.0);
-			customerRepository.save(cust);
+		if(customers!=null) {
+			System.out.println("Customer " + customers.size());
+			
+			customers.forEach(System.out::println);
+			urls.forEach(System.out::println);
+			
+			int qty = customers.size();
+			if (qty == urls.size()) {
+				for (int i = 0; i<qty;i++) {
+				Customer cust = new Customer();
+				cust.setName(customers.get(i));
+				String url = urls.get(i);
+				String result = restService.getBodyFromRestApiCall(url);
+				cust.setResponseBody(result);
+				cust.setUrl(url);
+				cust.setId(UUID.randomUUID().toString());
+				cust.setIncome(100.0);
+				customerRepository.save(cust);
+				}
 			}
+		} else {
+			System.out.println("The client list is empty!");
 		}
-*/
+
 		manager.completeWorkItem(workItem.getId(), null);	
 		
 	}

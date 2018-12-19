@@ -14,7 +14,14 @@ public class Customer {
 	private Double debts;
 	private Double patrimony;
 	private String url;
+	private String responseBody;
 	
+	public String getResponseBody() {
+		return responseBody;
+	}
+	public void setResponseBody(String responseBody) {
+		this.responseBody = responseBody;
+	}
 	public String getUrl() {
 		return url;
 	}
