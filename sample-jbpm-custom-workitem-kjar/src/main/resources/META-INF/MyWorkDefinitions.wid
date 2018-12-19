@@ -1,0 +1,28 @@
+import org.drools.core.process.core.datatype.impl.type.StringDataType;
+import org.drools.core.process.core.datatype.impl.type.ListDataType;
+
+[
+  [
+    "name" : "CSV Line Extractor",
+    "parameters" : [
+      "CsvPath" : new StringDataType(),
+    ],
+    "results" : [
+      "Output" : new ListDataType(),
+      "Names" : new ListDataType(),
+    ]
+    "displayName" : "CSV Line Extractor",
+    "icon" : "icon-info.gif"
+  ],
+  [
+    "name" : "Mongo Persistence",
+    "parameters" : [
+      "Customer" : new ListDataType(),
+      "URLs" : new ListDataType(),
+      "Income" : new StringDataType(),
+      "Debt" : new StringDataType(),
+    ],
+    "displayName" : "Mongo Persistence",
+    "icon" : "icon-info.gif"
+  ],
+]

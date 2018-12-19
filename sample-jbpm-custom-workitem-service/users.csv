@@ -1,0 +1,4 @@
+Name,Description,Group,HTTP_Type,URL
+Monthly Income,This API will get the monthly income for a given user,Income,GET,http://www.mocky.io/v2/5c16725c2f00005800b083f1
+Monthly Expenses,This API will get the monthly expenses for a given user,Expenses,GET,http://www.mocky.io/v2/5c1672c92f00000e00b083f3
+Patrimony,This API will get the net worth for a given user,NetWorth,GET,http://www.mocky.io/v2/5c1672e62f00006500b083f4
